@@ -1,0 +1,289 @@
+/* index.style.css */
+
+/* فونت وزیر فارسی */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@latest/index.css');
+
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: #f9fafb;
+    margin: 20px;
+    color: #333;
+    direction: rtl;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* کانتینر دکمه‌ها */
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+/* دکمه‌ها */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 22px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    box-shadow:
+        0 3px 8px rgb(0 0 0 / 0.12),
+        0 1px 3px rgb(0 0 0 / 0.08);
+    user-select: none;
+    background: #666;
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn:hover,
+.btn:focus {
+    box-shadow:
+        0 6px 15px rgb(0 0 0 / 0.18),
+        0 2px 8px rgb(0 0 0 / 0.12);
+    outline: none;
+}
+
+/* رنگ‌ها (پالت زرشکی مدرن) */
+.btn.green {
+    background-color: #961e2a; /* زرشکی تیره و شیک */
+    box-shadow: 0 3px 8px rgba(150, 30, 42, 0.6), 0 1px 3px rgba(150, 30, 42, 0.4);
+}
+.btn.green:hover {
+    background-color: #b22a38; /* روشن‌تر */
+    box-shadow: 0 6px 15px rgba(178, 42, 56, 0.7), 0 2px 8px rgba(178, 42, 56, 0.5);
+}
+
+.btn.blue {
+    background-color: #007bff;
+}
+.btn.blue:hover {
+    background-color: #0069d9;
+}
+
+/* دکمه حذف همه محصولات - دقیقا شبیه دکمه افزودن محصول (زرشکی) */
+.btn.red {
+    background-color: #961e2a; /* همان رنگ زرشکی */
+    box-shadow: 0 3px 8px rgba(150, 30, 42, 0.6), 0 1px 3px rgba(150, 30, 42, 0.4);
+}
+.btn.red:hover {
+    background-color: #b22a38;
+    box-shadow: 0 6px 15px rgba(178, 42, 56, 0.7), 0 2px 8px rgba(178, 42, 56, 0.5);
+}
+
+.btn.orange {
+    background-color: #fd7e14;
+}
+.btn.orange:hover {
+    background-color: #e36b0a;
+}
+
+.btn.purple {
+    background-color: #6f42c1;
+}
+.btn.purple:hover {
+    background-color: #5a32a3;
+}
+
+/* دکمه‌های کوچک */
+.btn.small {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+/* کانتینر جدول */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow:
+        0 2px 15px rgb(0 0 0 / 0.1);
+    background: white;
+    padding: 15px;
+}
+
+/* جدول */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+    font-size: 0.9rem;
+    color: #444;
+    text-align: center;
+}
+
+/* هدر جدول */
+.product-table thead tr {
+    background: linear-gradient(90deg, #961e2a, #5e0e23);
+    color: white;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    user-select: none;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+/* ردیف‌ها */
+.product-table tbody tr {
+    transition: background-color 0.25s ease;
+    cursor: default;
+}
+
+.product-table tbody tr:hover {
+    background-color: #fdf1f2;
+}
+
+/* تصویر کوچک محصولات */
+.product-table img {
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-table img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+/* نشان وضعیت */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    user-select: none;
+    box-shadow:
+        0 2px 6px rgb(0 0 0 / 0.12);
+    transition: background-color 0.3s ease;
+}
+
+.badge.active {
+    background: #28a745;
+}
+.badge.inactive {
+    background: #dc3545;
+}
+
+/* ستون عملیات */
+.actions-cell {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* برای دکمه‌های عملیات */
+.actions-cell .btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    box-shadow: none;
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+.actions-cell .btn:hover {
+    filter: brightness(1.1);
+}
+
+/* ریسپانسیو */
+@media (max-width: 1024px) {
+    .actions {
+        justify-content: center;
+    }
+    .table-container {
+        padding: 10px;
+    }
+    .product-table {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 600px) {
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .actions-cell {
+        flex-direction: column;
+    }
+    .actions-cell .btn {
+        width: 100%;
+    }
+    .product-table {
+        font-size: 0.8rem;
+    }
+}
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: white;
+    padding: 15px;
+
+    /* سایه زرشکی پررنگ‌تر و واضح‌تر */
+    box-shadow:
+        0 8px 24px rgba(94, 14, 35, 0.35),
+        0 4px 12px rgba(94, 14, 35, 0.25);
+}
+.product-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-table td:hover {
+    transform: scale(1.05);
+    z-index: 1;
+    position: relative;
+}
+.product-table img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 16px rgba(94, 14, 35, 0.25);
+}
+.seller-info {
+    background-color: #fff3f4;
+    color: #961e2a;
+    border: 1px solid #f5c2c7;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    max-width: 280px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(150, 30, 42, 0.1);
+    display: inline-block;
+}
+
+
+
+
+
+
+
+

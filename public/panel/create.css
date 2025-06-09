@@ -1,0 +1,148 @@
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@latest/index.css');
+
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: #faf9f9;
+    margin: 30px auto;
+    max-width: 600px;
+    padding: 0 15px;
+    color: #4a2c2c;
+    direction: rtl;
+}
+
+/* تیتر فرم */
+h1 {
+    text-align: center;
+    color: #5e0e23;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(94,14,35,0.4);
+    letter-spacing: 0.04em;
+}
+
+/* فرم */
+form {
+    background: #fff;
+    padding: 30px 35px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(94,14,35,0.3);
+    border: 1px solid #aa3844;
+}
+
+/* برچسب‌ها */
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #7b1a2a;
+    user-select: none;
+    letter-spacing: 0.03em;
+}
+
+/* ورودی‌های تک خطی و شماره */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2px solid #aa3844;
+    background-color: #fff6f6;
+    color: #5e0e23;
+    font-weight: 600;
+    outline-offset: 3px;
+    resize: vertical;
+    font-family: 'Vazirmatn', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* تکس اریا */
+textarea {
+    min-height: 90px;
+}
+
+/* فیلدهای multi */
+.multi-fields {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.multi-fields input {
+    flex: 1 1 calc(20% - 12px);
+    min-width: 60px;
+}
+
+/* تغییر حالت وقتی روی فیلد فوکوس یا هاور */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus,
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+    border-color: #5e0e23;
+    box-shadow: 0 0 8px 2px rgba(94,14,35,0.4);
+    background-color: #fff0f0;
+}
+
+/* گزینه پیش‌فرض سلکت */
+select option[disabled] {
+    color: #999;
+}
+
+/* دکمه ثبت */
+button[type="submit"] {
+    margin-top: 30px;
+    width: 100%;
+    background: linear-gradient(45deg, #5e0e23, #aa3844);
+    color: white;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 14px 0;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow:
+        0 5px 12px rgba(94,14,35,0.7),
+        0 2px 8px rgba(170,56,68,0.5);
+    user-select: none;
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+    letter-spacing: 0.05em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+    background: linear-gradient(45deg, #aa3844, #5e0e23);
+    box-shadow:
+        0 7px 18px rgba(170,56,68,0.9),
+        0 3px 12px rgba(94,14,35,0.7);
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* ریسپانسیو موبایل */
+@media (max-width: 480px) {
+    form {
+        padding: 25px 20px;
+    }
+    .multi-fields {
+        flex-direction: column;
+    }
+    .multi-fields input {
+        flex: 1 1 100%;
+    }
+}
+

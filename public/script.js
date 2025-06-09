@@ -21,4 +21,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 7000); // 7 ثانیه
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const successBox = document.getElementById('custom-success-box');
+    if (successBox) {
+        setTimeout(() => {
+            successBox.style.opacity = '0';
+            setTimeout(() => {
+                successBox.style.display = 'none';
+            }, 500); // زمان fade-out
+        }, 7000); // نمایش برای ۷ ثانیه
+    }
+});
+
 
