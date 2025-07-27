@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{asset('panel/create.css')}}">
+    <title>افزودن محصول</title>
+</head>
+<body>
+
+<h1>فرم ویرایش محصول</h1>
+
+<form action="{{route('UpdateProduct' , $product->id)}}" method="post" enctype="multipart/form-data">
+    @csrf
+    @if($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+        @endif
+    <!-- نام محصول -->
+    <label for="name">نام محصول</label>
+    <input type="text" id="name" name="name" value="{{$product->name}}" required />
+
+    <!-- توضیحات -->
+    <label for="description">توضیحات</label>
+    <textarea id="description" name="description"  required>{{$product->description}}</textarea>
+
+    <!-- تصویر -->
+    <label for="image">تصویر محصول</label>    <img src="{{ asset('uploads/products/' . $product->image) }}" alt="عکس محصول"
+                                                   style="max-width:50px;">
+    <input  type="file" id="image" name="image" accept="image/*"  />
+
+
+    <!-- دسته بندی -->
+    <label for="category">دسته بندی</label>
+    <select name="category">
+        @foreach($categories as $category)
+            <option value="{{$category->id}}" {{ ($product->category_id == $category->id) ? 'selected' : '' }}>
+                {{$category->name}}
+            </option>
+        @endforeach
+
+    </select>
+    @php
+        $colorValues = $product->properties->where('title', 'color')->pluck('pivot.content')->values();
+        $sizeValues = $product->properties->where('title', 'size')->pluck('pivot.content')->values();
+    @endphp
+
+
+    <!-- رنگ ها (5 فیلد ثابت) -->
+    <!-- رنگ‌ها -->
+    <!-- رنگ‌ها -->
+    <label>رنگ‌ها (حداکثر ۵ مقدار)</label>
+    <div class="multi-fields">
+        @for ($i = 0; $i < 5; $i++)
+            <input
+                type="text"
+                name="colors[]"
+                value="{{ $colorValues[$i] ?? '' }}"
+                placeholder="رنگ {{ $i + 1 }}">
+        @endfor
+    </div>
+
+    <!-- سایزها -->
+    <label>سایزها (حداکثر ۵ مقدار)</label>
+    <div class="multi-fields">
+        @for ($i = 0; $i < 5; $i++)
+            <input
+                type="text"
+                name="sizes[]"
+                value="{{ $sizeValues[$i] ?? '' }}"
+                placeholder="سایز {{ $i + 1 }}">
+        @endfor
+    </div>
+
+
+
+    <!-- جنسیت -->
+    <label for="gender">جنسیت</label>
+    <select id="gender" name="gender" class="gender-select" required>
+        <option value="" disabled {{ !$product->gender ? 'selected' : '' }}>انتخاب کنید</option>
+        <option value="male" {{ $product->gender == 'male' ? 'selected' : '' }}>مردانه</option>
+        <option value="female" {{ $product->gender == 'female' ? 'selected' : '' }}>زنانه</option>
+        <option value="sport" {{ $product->gender == 'sport' ? 'selected' : '' }}>اسپورت</option>
+    </select>
+
+
+    <!-- تعداد -->
+    <label for="quantity">تعداد</label>
+    <input type="number" id="quantity" name="quantity" min="0" value="{{$product->quantity}}" required />
+
+    <!-- برند -->
+    <label for="brand">برند</label>
+    <input type="text" id="brand" name="brand" value="{{$product->brand}}"  required />
+
+    <!-- قیمت -->
+    <label for="price">قیمت (تومان)</label>
+    <input type="number" id="price" name="price" min="0" value="{{$product->price}}"  required />
+
+    <button type="submit">ثبت محصول</button>
+</form>
+
+</body>
+</html>

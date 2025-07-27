@@ -67,11 +67,12 @@
                         <a class="nav-link" href="{{route('Show-Index')}}">خانه</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Shop')}}">فروشگاه</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Contact')}}">تماس باما</a>
                     </li>
@@ -89,12 +90,16 @@
                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
                 </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
+                @if(auth()->check())
+                <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Orders')}}">
                     <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                 </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
-                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                </a>
+                @endif
+                @if(!auth()->check())
+                    <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Auth')}}">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    </a>
+                @endif
             </div>
         </div>
 

@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
     <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
 
     <!-- Slick -->
@@ -30,6 +31,7 @@
 </head>
 
 <body>
+
 <!-- Start Top Nav -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
     <div class="container text-light">
@@ -41,10 +43,14 @@
                 <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
             </div>
             <div>
-                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i
+                        class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i
+                        class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://twitter.com/" target="_blank"><i
+                        class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i
+                        class="fab fa-linkedin fa-sm fa-fw"></i></a>
             </div>
         </div>
     </div>
@@ -60,21 +66,24 @@
             Zay
         </a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+             id="templatemo_main_nav">
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Index')}}">خانه</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
+                        <a class="nav-link" href="{{route('Show-Shop')}}">فروشگاه</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Show-Shop')}}l">فروشگاه</a>
+                        <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Contact')}}">تماس باما</a>
@@ -90,15 +99,20 @@
                         </div>
                     </div>
                 </div>
-                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                   data-bs-target="#templatemo_search">
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
                 </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
-                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
-                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                </a>
+                @if(auth()->check())
+                    <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Orders')}}">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        @endif
+                    </a>
+                    @if(!auth()->check())
+                        <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Auth')}}">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        </a>
+                    @endif
             </div>
         </div>
 
@@ -108,7 +122,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="w-100 pt-1 mb-5 text-right">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -125,163 +140,171 @@
 </div>
 
 <!-- Open Content -->
-<section class="bg-light">
-    <div class="container pb-5">
-        <div class="row">
-            <div class="col-lg-5 mt-5">
-                <div class="card mb-3">
-                    <img class="card-img img-fluid" src="{{ asset('img/bb20094ef72712cba49722e50a50ba34162bc8fd_1636747381.jpg') }}" alt="Card image cap" id="product-detail">
-                </div>
-                <div class="row">
-                    <!--Start Controls-->
-                    <div class="col-1 align-self-center">
-                        <a href="#multi-item-example" role="button" data-bs-slide="prev">
-                            <i class="text-dark fas fa-chevron-right"></i>
-                            <span class="sr-only">next</span>
-                        </a>
+<form action="{{route('AddOrder' , $product->id)}}" method="POST">
+    @csrf
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="row">
+
+                <div class="col-lg-5 mt-5">
+                    <div class="card mb-3">
+
+                        <img style="max-height:500px;max-width: 700px" class="card-img img-fluid"
+                             src="{{ asset('uploads/products/' . $product->image) }}"
+                             alt="Card image cap" id="product-detail">
                     </div>
-                    <!--End Controls-->
-                    <!--Start Carousel Wrapper-->
-                    <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
-                        <!--Start Slides-->
-                        <div class="carousel-inner product-links-wap" role="listbox">
 
-                            <!--First slide-->
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="{{ asset('img/bb20094ef72712cba49722e50a50ba34162bc8fd_1636747381.jpg') }}" alt="Product Image 1">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="{{ asset('img/category_img_02.jpg') }}" alt="Product Image 2">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="{{ asset('img/fafa155591918cc3a548319ea5ae7eaaca227024_1652105866.jpg') }}" alt="Product Image 3">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.First slide-->
-
-                            <!--Second slide-->
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="{{ asset('img/ff2f076be6ded436a14cc1d4e5e48e79b78508ef_1610993916.jpg') }}" alt="Product Image 4">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--/.Second slide-->
-
-                            <!--Third slide-->
-                            <!--/.Third slide-->
+                    <div class="row">
+                        <!--Start Controls-->
+                        <div class="col-1 align-self-center">
+                            <a href="#multi-item-example" role="button" data-bs-slide="prev">
+                                <i class="text-dark fas fa-chevron-right"></i>
+                                <span class="sr-only">next</span>
+                            </a>
                         </div>
-                        <!--End Slides-->
+                        <!--End Controls-->
+                        <!--Start Carousel Wrapper-->
+                        <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item"
+                             data-bs-ride="carousel">
+                            <!--Start Slides-->
+                            <div class="carousel-inner product-links-wap" role="listbox">
+
+                                <!--First slide-->
+
+                                <!--/.First slide-->
+
+                                <!--Second slide-->
+                                <!--/.Second slide-->
+
+                                <!--Third slide-->
+                                <!--/.Third slide-->
+                            </div>
+                            <!--End Slides-->
+                        </div>
+                        <!--End Carousel Wrapper-->
+                        <!--Start Controls-->
+                        <div class="col-1 align-self-center">
+                            <a href="#multi-item-example" role="button" data-bs-slide="next">
+                                <i class="text-dark fas fa-chevron-left"></i>
+                                <span class="sr-only">bac</span>
+                            </a>
+                        </div>
+                        <!--End Controls-->
                     </div>
-                    <!--End Carousel Wrapper-->
-                    <!--Start Controls-->
-                    <div class="col-1 align-self-center">
-                        <a href="#multi-item-example" role="button" data-bs-slide="next">
-                            <i class="text-dark fas fa-chevron-left"></i>
-                            <span class="sr-only">bac</span>
-                        </a>
-                    </div>
-                    <!--End Controls-->
                 </div>
-            </div>
-            <!-- col end -->
-            <div class="col-lg-7 mt-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="h2">انواع کفش </h1>
-                        <p class="h3 py-2">۱۵۰,۰۰۰ تومن</p>
-                        <p class="py-2">
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <span class="list-inline-item text-dark">امتیاز 4.8 | 36 نظر</span>
-                        </p>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <h6>برند:</h6>
-                            </li>
-                            <li class="list-inline-item">
-                                <p class="text-muted"><strong>Easy Wear</strong></p>
-                            </li>
-                        </ul>
+                <!-- col end -->
+                <div class="col-lg-7 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>فروشنده:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{ $product->user->name }}</strong></p>
+                                </li>
+                            </ul>
 
-                        <h6>شرح:</h6>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <h6>رنگ موجود :</h6>
-                            </li>
-                            <li class="list-inline-item">
-                                <p class="text-muted"><strong>سفید / سیاه</strong></p>
-                            </li>
-                        </ul>
+                            <h1 class="h2">{{$product->name}}</h1>
+                            <p class="h3 py-2">{{number_format($product->price) . ' ' . 'تومان'}}</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>برند:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{$product->brand}}</strong></p>
+                                </li>
+                            </ul>
 
-                        <h6>مشخصات:</h6>
-                        <ul class="list-unstyled pb-3">
-                            <li>رنگ متفاوت</li>
-                            <li>طراحی جالب</li>
-                            <li>دوخت سالم</li>
-                            <li>قیمت مناسب</li>
-                            <li>ابعاد مختلف</li>
-                        </ul>
+                            <h6>شرح:</h6>
+                            <p>{{$product->description}}</p>
 
-                        <form action="" method="GET">
-                            <input type="hidden" name="product-title" value="Activewear">
+
+                            <!-- انتخاب رنگ -->
+
+
+                            <!-- دکمه افزودن -->
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>رنگ موجود :</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    @php
+                                        $color = $product->properties->where('title', 'color');
+                                        $allColors = $color->pluck('pivot.content')->toArray();
+                                    @endphp
+                                    <label class="btn btn-success">
+                                        @foreach($allColors as $color)
+                                            <input type="radio" name="color" value="{{$color}}">
+                                            {{$color}}
+                                    </label>
+                                </li>
+
+                            </ul>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>نام دسته بندی :</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{$product->category->name}}</strong></p>
+                                </li>
+                            </ul>
                             <div class="row">
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
-                                        <li class="list-inline-item">اندازه :
-                                            <input type="hidden" name="product-size" id="product-size" value="S">
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
+                                        @php
+                                            $sizes = $product->properties->where('title', 'size');
+                                            $allSizes = $sizes->pluck('pivot.content')->toArray();
+                                        @endphp
+
+                                        <label class="btn btn-success">
+                                            @foreach($allSizes as $size)
+                                                <input type="radio" name="size" value="{{$size}}">
+                                                {{$size}}
+                                            @endforeach
+                                        </label>
+
                                     </ul>
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">تعداد:</label>
+                                        <input type="number" name="quantity"
+                                               class="form-control w-25 border-success"
+                                               value="1" min="1">
+                                    </div>
+                                    @if($errors->has('quantity'))
+                                        <div style="margin-bottom: 10px" class="text-danger mt-2">
+                                            {{ $errors->first('quantity') }}
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
                                         <li class="list-inline-item text-right">
-                                            تعداد
-                                            <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                            تعداد موجود
                                         </li>
-                                        <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+
+                                        <li class="list-inline-item"><span class="btn btn-success"
+                                                                           id="btn-plus">{{$product->quantity}}</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="row pb-3">
+
                                 <div class="col d-grid">
-                                    <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">خرید کنید</button>
-                                </div>
-                                <div class="col d-grid">
-                                    <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">افزودن به سبد خرید</button>
+                                    <button type="submit" class="btn btn-success btn-lg" name="submit"
+                                            value="addtocard">افزودن به سبد خرید
+                                    </button>
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-    </div>
-</section>
+    </section>
+</form>
 <!-- Close Content -->
 
 
@@ -341,23 +364,29 @@
             <div class="col-auto me-auto">
                 <ul class="list-inline text-left footer-icons">
                     <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
+                                class="fab fa-facebook-f fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                        <a class="text-light text-decoration-none" target="_blank"
+                           href="https://www.instagram.com/"><i
+                                class="fab fa-instagram fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                        <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i
+                                class="fab fa-twitter fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i
+                                class="fab fa-linkedin fa-lg fa-fw"></i></a>
                     </li>
                 </ul>
             </div>
             <div class="col-auto">
                 <label class="sr-only" for="subscribeEmail">آدرس ایمیل</label>
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="آدرس ایمیل">
+                    <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
+                           placeholder="آدرس ایمیل">
                     <div class="input-group-text btn-success text-light">ارسال</div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Order extends Model
 {
     use HasFactory,Notifiable;
+    protected $fillable = ['buyer_id' , 'status'];
 
     public function user()
     {
@@ -17,6 +18,14 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'order_products')
+            ->withPivot('quantity', 'color', 'size')
+            ->withTimestamps();
+    }
+
+
+    public function orderProducts()
+    {
+        return $this->hasMany(OrderProduct::class);
     }
 }

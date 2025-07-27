@@ -12,6 +12,9 @@
 
 <form action="{{route('Create-Product')}}" method="post" enctype="multipart/form-data">
     @csrf
+    @if($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+        @endif
     <!-- نام محصول -->
     <label for="name">نام محصول</label>
     <input type="text" id="name" name="name" placeholder="نام محصول را وارد کنید" required />
@@ -26,7 +29,11 @@
 
     <!-- دسته بندی -->
     <label for="category">دسته بندی</label>
-    <input type="text" id="category" name="category" placeholder="دسته بندی محصول" required />
+    <select name="category">
+        @foreach($categories as $category)
+    <option value="{{$category->id}}">{{$category->name}}</option>
+        @endforeach
+    </select>
 
     <!-- رنگ ها (5 فیلد ثابت) -->
     <label>رنگ‌ها (حداکثر ۵ مقدار)</label>

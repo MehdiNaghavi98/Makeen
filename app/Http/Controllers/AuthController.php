@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
 use Illuminate\Http\Request;
-use function Sodium\compare;
+
 
 class AuthController extends Controller
 {
@@ -64,11 +65,11 @@ class AuthController extends Controller
             $role = $user->getRoleNames()->first();
             if ($role == 'seller')
             {
-                return redirect()->route('Show-Panel')->with('success_login', 'Login Successfully');
+                return redirect()->route('Show-Panel');
             }
             if ($role === 'buyer')
             {
-                return view('index');
+             return redirect()->route('Show-Index');
             }
         }
         else
@@ -76,6 +77,13 @@ class AuthController extends Controller
             $error = 'phone or password not match';
             return view('auth.index', compact('error'));
         }
+        return redirect()->route('Show-Panel');
+    }
+    public function logout(request $request)
+    {
+        Auth::logout();
+        return redirect()->route('Show-Index');
+
     }
 
 
