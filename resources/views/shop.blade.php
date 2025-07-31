@@ -168,7 +168,6 @@
                 <div class="col-md-6"></div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <select class="form-control w-100 w-md-auto">
-                        <option>محبوب‌ترین</option>
                         <option>قیمت کم به زیاد</option>
                         <option>قیمت زیاد به کم</option>
                     </select>

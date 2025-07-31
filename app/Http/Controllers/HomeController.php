@@ -19,7 +19,7 @@ class HomeController extends Controller
                 abort(403, 'شما فروشنده اید ');
             }
         }
-        $products = Product::limit(3)->get();
+        $products = Product::limit(3)->where('status' , '10')->get();
         $categories = Category::all();
         return view('index' , compact('products', 'categories'));
     }

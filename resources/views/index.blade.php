@@ -109,7 +109,6 @@
                 @if(auth()->check())
                     <a href="{{ route('Show-User-Details') }}" class="nav-icon position-relative text-decoration-none d-flex align-items-center">
                         <i class="fa fa-fw fa-user text-dark ms-1"></i>
-                        <span class="user-name-custom">{{ Auth::user()->name }}</span>
                     </a>
                 @endif
 

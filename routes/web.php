@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -56,5 +57,6 @@ Route::post('/update/{id}' , [PanelController::class , 'UpdateProduct'])->name('
 Route::post('/AddOrder/{id}' , [OrderController::class , 'AddOrder'])->name('AddOrder');
 Route::post('/UpdateOrder/{id}' , [OrderController::class , 'UpdateOrder'])->name('UpdateOrder');
 Route::post('/DeleteOrder' , [OrderController::class , 'DeleteOrder'])->name('DeleteOrder');
+Route::post('/AddComment/{id}' , [CommentController::class , 'AddComment'])->name('AddComment');
 
 

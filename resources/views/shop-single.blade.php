@@ -140,11 +140,24 @@
 </div>
 
 <!-- Open Content -->
+
 <form action="{{route('AddOrder' , $product->id)}}" method="POST">
     @csrf
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
+                @if(session('success'))
+                    <div class="custom-toast" id="successToast">
+                        <i class="fas fa-check-circle"></i>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                @endif
+                @if(session('limited'))
+                    <div class="alert-limited">
+                        {{ session('limited') }}
+                    </div>
+                @endif
+
 
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
@@ -196,116 +209,215 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>فروشنده:</h6>
-                                </li>
-                                <li class="list-inline-item">
+
+                            <ul class="list-inline product-info-list">
+
+                                <li class="list-inline-item seller-section">
+                                    <label class="section-label">فروشنده:</label>
                                     <p class="text-muted"><strong>{{ $product->user->name }}</strong></p>
+                                </li>
+
+                                <li style="margin-top:-100px ; margin-right: 500px"
+                                    class="list-inline-item rating-section">
+                                    <label class="section-label">امتیاز محصول</label>
+                                    @php
+                                        $avgRating = $avg ?? 0;
+                                        $fullStars = floor($avgRating);
+                                        $hasHalfStar = ($avgRating - $fullStars) >= 0.5;
+                                        $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                    @endphp
+
+                                    <div class="product-rating d-flex align-items-center gap-1">
+                                        {{-- ستاره‌های پر --}}
+                                        @for ($i = 0; $i < $fullStars; $i++)
+                                            <i class="fas fa-star text-warning"></i>
+                                        @endfor
+
+                                        {{-- نیم ستاره --}}
+                                        @if ($hasHalfStar)
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        @endif
+
+                                        {{-- ستاره‌های خالی --}}
+                                        @for ($i = 0; $i < $emptyStars; $i++)
+                                            <i class="far fa-star text-muted"></i>
+                                        @endfor
+
+                                        {{-- عدد امتیاز فقط اگر نظر وجود داشته باشد --}}
+                                        @if($avg !== null)
+                                            <span class="text-secondary small ms-2">({{ number_format($avgRating, 1) }}/5)</span>
+                                        @endif
+                                    </div>
+
                                 </li>
                             </ul>
 
-                            <h1 class="h2">{{$product->name}}</h1>
-                            <p class="h3 py-2">{{number_format($product->price) . ' ' . 'تومان'}}</p>
-                            <ul class="list-inline">
+                            <div class="product-title-price">
+                                <h1 class="h2 product-name">{{$product->name}}</h1>
+                                <p class="h3 product-price py-2">{{number_format($product->price) . ' تومان'}}</p>
+                            </div>
+
+                            <ul class="list-inline brand-section">
                                 <li class="list-inline-item">
-                                    <h6>برند:</h6>
+                                    <label class="section-label">برند:</label>
                                 </li>
                                 <li class="list-inline-item">
                                     <p class="text-muted"><strong>{{$product->brand}}</strong></p>
                                 </li>
                             </ul>
 
-                            <h6>شرح:</h6>
-                            <p>{{$product->description}}</p>
+                            <div class="description-section mb-4">
+                                <label class="section-label">شرح:</label>
+                                <p>{{$product->description}}</p>
+                            </div>
 
-
-                            <!-- انتخاب رنگ -->
-
-
-                            <!-- دکمه افزودن -->
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>رنگ موجود :</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    @php
-                                        $color = $product->properties->where('title', 'color');
-                                        $allColors = $color->pluck('pivot.content')->toArray();
-                                    @endphp
-                                    <label class="btn btn-success">
-                                        @foreach($allColors as $color)
-                                            <input type="radio" name="color" value="{{$color}}">
-                                            {{$color}}
-                                    </label>
-                                </li>
-
-                            </ul>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>نام دسته بندی :</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>{{$product->category->name}}</strong></p>
-                                </li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-auto">
-                                    <ul class="list-inline pb-3">
-                                        @php
-                                            $sizes = $product->properties->where('title', 'size');
-                                            $allSizes = $sizes->pluck('pivot.content')->toArray();
-                                        @endphp
-
-                                        <label class="btn btn-success">
-                                            @foreach($allSizes as $size)
-                                                <input type="radio" name="size" value="{{$size}}">
-                                                {{$size}}
-                                            @endforeach
-                                        </label>
-
-                                    </ul>
-                                    <div class="mb-4">
-                                        <label class="form-label fw-bold">تعداد:</label>
-                                        <input type="number" name="quantity"
-                                               class="form-control w-25 border-success"
-                                               value="1" min="1">
+                            @php
+                                $colors = $product->properties->where('title', 'color')->pluck('pivot.content')->toArray();
+                            @endphp
+                            <div class="colors-section mb-4">
+                                <label class="section-label d-block mb-2">رنگ‌های موجود:</label>
+                                @foreach($colors as $color)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="color"
+                                               id="color_{{ $loop->index }}" value="{{ $color }}" required>
+                                        <label class="form-check-label"
+                                               for="color_{{ $loop->index }}">{{ $color }}</label>
                                     </div>
+                                @endforeach
+                            </div>
+
+                            @php
+                                $sizes = $product->properties->where('title', 'size')->pluck('pivot.content')->toArray();
+                            @endphp
+                            <div class="sizes-section mb-4">
+                                <label class="section-label d-block mb-2">سایزهای موجود:</label>
+                                @foreach($sizes as $size)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="size"
+                                               id="size_{{ $loop->index }}" value="{{ $size }}" required>
+                                        <label class="form-check-label"
+                                               for="size_{{ $loop->index }}">{{ $size }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="quantity-stock-section row align-items-center mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">تعداد:</label>
+                                    <input max="{{$product->quantity}}" type="number" name="quantity"
+                                           class="form-control w-50 border-success" value="1" min="1">
                                     @if($errors->has('quantity'))
-                                        <div style="margin-bottom: 10px" class="text-danger mt-2">
-                                            {{ $errors->first('quantity') }}
-                                        </div>
+                                        <div class="text-danger mt-2">{{ $errors->first('quantity') }}</div>
                                     @endif
                                 </div>
-                                <div class="col-auto">
-                                    <ul class="list-inline pb-3">
-                                        <li class="list-inline-item text-right">
-                                            تعداد موجود
-                                        </li>
-
-                                        <li class="list-inline-item"><span class="btn btn-success"
-                                                                           id="btn-plus">{{$product->quantity}}</span>
-                                        </li>
-                                    </ul>
+                                <div class="col-md-6">
+                                    <label class="fw-bold">تعداد موجود:</label>
+                                    <span class="btn btn-success">{{ $product->quantity }}</span>
                                 </div>
                             </div>
-                            <div class="row pb-3">
 
+                            <div class="add-to-cart-section row pb-3">
                                 <div class="col d-grid">
                                     <button type="submit" class="btn btn-success btn-lg" name="submit"
-                                            value="addtocard">افزودن به سبد خرید
+                                            value="addtocard">
+                                        افزودن به سبد خرید
                                     </button>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
     </section>
 </form>
 <!-- Close Content -->
+<!-- شروع بخش نظرات حرفه‌ای -->
+<section class="container mt-5">
+    <div class="card shadow-sm p-4">
+
+        <!-- عنوان -->
+        <h4 class="text-success mb-4 d-flex align-items-center">
+            <i class="fa fa-comments me-2 text-success"></i>
+            بخش نظرات کاربران
+        </h4>
+
+        <!-- فرم ثبت نظر -->
+        @guest
+            <div class="alert-box-no-login p-4 rounded shadow-sm mb-4">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-user-lock fa-lg me-3 text-danger"></i>
+                    <div>
+                        <h6 class="fw-bold mb-1 text-dark">برای ثبت نظر ابتدا وارد حساب کاربری خود شوید</h6>
+                        <a href="{{ route('Show-Auth') }}" class="btn btn-outline-success btn-sm mt-2 px-4">ورود /
+                            ثبت‌نام</a>
+                    </div>
+                </div>
+            </div>
+        @endguest
+
+        {{-- فرم ثبت نظر فقط برای کاربران لاگین‌شده --}}
+        @auth
+            <form class="comment-form mb-5" action="{{ route('AddComment', $product->id) }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="comment" class="form-label fw-bold text-dark">نظر خود را بنویسید</label>
+                    <textarea name="comment" class="form-control comment-input" id="comment" rows="4"
+                              placeholder="نظرتو برامون بنویس..." required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-dark">امتیاز شما:</label>
+                    <div class="rating-stars d-flex gap-1 flex-row-reverse justify-content-end">
+                        @for($i = 5; $i >= 1; $i--)
+                            <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" class="d-none"
+                                   required>
+                            <label for="star{{ $i }}" class="star fs-4">&#9733;</label>
+                        @endfor
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success px-4 py-2 shadow-sm">ثبت نظر</button>
+                </div>
+            </form>
+        @endauth
+        {{-- نمایش نظرات کاربران --}}
+        <div class="comments-container">
+            @foreach($product->comments as $comment)
+                <div class="single-comment">
+                    <div class="comment-header d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-placeholder me-2">
+                                {{ mb_substr($comment->user->name, 0, 1) }}
+                            </div>
+                            <div>
+                                <div class="fw-bold text-success">کاربر {{ $comment->user->name }}</div>
+                                <small class="text-muted">{{ $comment->created_at }}</small>
+                            </div>
+                        </div>
+                        <div class="rating-display">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $comment->rating)
+                                    <i class="fas fa-star text-warning"></i>
+                                @else
+                                    <i class="far fa-star text-muted"></i>
+                                @endif
+                            @endfor
+                        </div>
+                    </div>
+                    <p class="comment-text">{{ $comment->comment }}</p>
+                </div>
+            @endforeach
+        </div>
+
+    </div>
+</section>
+<!-- پایان بخش نظرات -->
+
+<!-- پایان بخش نظرات -->
 
 
 <!-- Start Footer -->

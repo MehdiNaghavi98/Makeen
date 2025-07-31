@@ -12,13 +12,14 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory,Notifiable,InteractsWithMedia;
-    protected $fillable = ['name', 'price', 'description' , 'image' , 'status' ,  'category_id' , 'quantity' , 'seller_id' , 'gender' , 'brand'];
+    use HasFactory, Notifiable, InteractsWithMedia;
+
+    protected $fillable = ['name', 'price', 'description', 'image', 'status', 'category_id', 'quantity', 'seller_id', 'gender', 'brand'];
 
 
     public function user()
     {
-        return $this->belongsTo(User::class , 'seller_id');
+        return $this->belongsTo(User::class, 'seller_id');
     }
 
     public function category()
@@ -28,7 +29,7 @@ class Product extends Model implements HasMedia
 
     public function properties()
     {
-        return $this->belongsToMany(Property::class ,  'property_product')->withPivot('content');
+        return $this->belongsToMany(Property::class, 'property_product')->withPivot('content');
     }
 
     public function orders()
@@ -38,9 +39,9 @@ class Product extends Model implements HasMedia
             ->withTimestamps();
     }
 
-    public function orderProducts()
+    public function comments()
     {
-        return $this->hasMany(OrderProduct::class);
+     return $this->hasMany(Comment::class);
     }
 
 }
