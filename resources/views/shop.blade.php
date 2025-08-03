@@ -167,10 +167,16 @@
             <div class="row mb-4">
                 <div class="col-md-6"></div>
                 <div class="col-md-6 d-flex justify-content-end">
-                    <select class="form-control w-100 w-md-auto">
-                        <option>قیمت کم به زیاد</option>
-                        <option>قیمت زیاد به کم</option>
-                    </select>
+                    <div class="sort-options d-flex gap-2 mb-4 justify-content-center">
+                        <a href="{{route('Show-Shop' , 'down')}}" class="sort-link">
+                            قیمت از کم به زیاد
+                        </a>
+                        <a href="{{route('Show-Shop' , 'up')}}" class="sort-link">
+                            قیمت از زیاد به کم
+                        </a>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -191,13 +197,30 @@
                             </div>
                             <div class="card-body text-center d-flex flex-column justify-content-between">
                                 <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="text-muted">
-                                    @php
-                                        $sizes = $product->properties->where('title', 'size');
-                                        $allSizes = $sizes->pluck('pivot.content')->toArray();
-                                    @endphp
-                                    {{ implode(' - ', $allSizes) }}
-                                </p>
+                                @php
+                                    $sizes = $product->properties->where('title', 'size')->pluck('pivot.content')->toArray();
+                                @endphp
+
+                                @if(count($sizes))
+                                    <div class="product-sizes">
+                                        <span class="sizes-label">سایزها:</span>
+                                        @foreach($sizes as $size)
+                                            <span class="size-badge">{{ $size }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @php
+                                    $colors = $product->properties->where('title', 'color')->pluck('pivot.content')->toArray();
+                                @endphp
+
+                                @if(count($colors))
+                                    <div style="margin-bottom: 10px" class="product-sizes">
+                                        <span class="sizes-label">سایزها:</span>
+                                        @foreach($colors as $color)
+                                            <span class="size-badge">{{ $color }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <p class="text-success fw-bold">{{ number_format($product->price) }} تومان</p>
                             </div>
                         </div>

@@ -107,6 +107,6 @@ class OrderController extends Controller
         $order_products = DB::table('order_products')->where('order_id', $order->id)->get();
 
 
-        return view('final', compact('id','order_products', 'card_number'));
+        return view('final', compact('id', 'order_products', 'card_number'));
     }
 }

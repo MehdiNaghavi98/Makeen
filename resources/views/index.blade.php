@@ -37,13 +37,13 @@
             </div>
             <div>
                 <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i
-                            class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                        class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
                 <a class="text-light" href="https://www.instagram.com/" target="_blank"><i
-                            class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                        class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
                 <a class="text-light" href="https://twitter.com/" target="_blank"><i
-                            class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                        class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
                 <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i
-                            class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                        class="fab fa-linkedin fa-sm fa-fw"></i></a>
             </div>
         </div>
     </div>
@@ -101,13 +101,14 @@
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
                 </a>
                 @if(auth()->check())
-                <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Orders')}}">
-                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Orders')}}">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    </a>
                 @endif
 
                 @if(auth()->check())
-                    <a href="{{ route('Show-User-Details') }}" class="nav-icon position-relative text-decoration-none d-flex align-items-center">
+                    <a href="{{ route('Show-User-Details') }}"
+                       class="nav-icon position-relative text-decoration-none d-flex align-items-center">
                         <i class="fa fa-fw fa-user text-dark ms-1"></i>
                     </a>
                 @endif
@@ -115,7 +116,7 @@
 
 
 
-            @if(!auth()->check())
+                @if(!auth()->check())
                     <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Auth')}}">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                     </a>
@@ -237,7 +238,8 @@
         @foreach($categories as $category)
             <div class="col-12 col-md-4 p-5 mt-3">
                 <h5 class="text-center mt-3 mb-3">{{$category->name}}</h5>
-                <p class="text-center"><a href="{{route('Show-Shop' , $category->id)}}" class="btn btn-success">برو فروشگاه</a></p>
+                <p class="text-center"><a href="{{route('Show-Shop' , $category->id)}}" class="btn btn-success">برو
+                        فروشگاه</a></p>
             </div>
         @endforeach
 
@@ -264,18 +266,39 @@
                         </a>
                         <div class="card-body d-flex flex-column">
                             <ul class="list-unstyled d-flex justify-content-between">
-                                <li class="text-muted text-right">{{ number_format($product->price) . ' تومان' }}</li>
+                                <li  class="text-muted text-right">{{ number_format($product->price) . ' تومان' }}</li>
                             </ul>
 
                             <a href="{{ route('Show-Shop-Single' , $product->id) }}"
                                class="h2 text-decoration-none text-dark mb-2">{{ $product->name }}</a>
+                            @php
+                                $sizes = $product->properties->where('title', 'size')->pluck('pivot.content')->toArray();
+                            @endphp
 
-                            <p class="card-text flex-grow-1" style="overflow: hidden; text-overflow: ellipsis;">
-                                {{ $product->description }}
-                            </p>
+                            @if(count($sizes))
+                                <div class="product-sizes">
+                                    <span class="sizes-label">سایزها:</span>
+                                    @foreach($sizes as $size)
+                                        <span class="size-badge">{{ $size }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+                            @php
+                                $colors = $product->properties->where('title', 'color')->pluck('pivot.content')->toArray();
+                            @endphp
+
+                            @if(count($colors))
+                                <div class="product-sizes">
+                                    <span class="sizes-label">سایزها:</span>
+                                    @foreach($colors as $color)
+                                        <span class="size-badge">{{ $color }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+
 
                             <div class="card-buttons mt-3 d-flex justify-content-center">
-                                <a href="{{route('Show-Shop-Single' , $product->id)}}" class="btn btn-view">👁 مشاهده محصول</a>
+                                <a href="{{route('Show-Shop-Single' , $product->id)}}" class="btn btn-view">مشاهده محصول</a>
                             </div>
 
                         </div>
@@ -317,7 +340,8 @@
                 <h2 class="h2 text-light border-bottom pb-3 border-light">محصولات</h2>
                 <ul class="list-unstyled text-light footer-link-list">
                     @foreach($categories  as $category)
-                        <li><a class="text-decoration-none" href="{{route('Show-Shop' , $category->id)}}">{{$category->name}}</a></li>
+                        <li><a class="text-decoration-none"
+                               href="{{route('Show-Shop' , $category->id)}}">{{$category->name}}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -341,19 +365,19 @@
                 <ul class="list-inline text-left footer-icons">
                     <li class="list-inline-item border border-light rounded-circle text-center">
                         <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
-                                    class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                                class="fab fa-facebook-f fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
                         <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i
-                                    class="fab fa-instagram fa-lg fa-fw"></i></a>
+                                class="fab fa-instagram fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
                         <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i
-                                    class="fab fa-twitter fa-lg fa-fw"></i></a>
+                                class="fab fa-twitter fa-lg fa-fw"></i></a>
                     </li>
                     <li class="list-inline-item border border-light rounded-circle text-center">
                         <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i
-                                    class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                                class="fab fa-linkedin fa-lg fa-fw"></i></a>
                     </li>
                 </ul>
             </div>

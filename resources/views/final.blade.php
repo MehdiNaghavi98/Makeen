@@ -85,7 +85,7 @@
 
     <h2> ✅ سفارش شما با موفقیت ثبت شد{{' '.auth()->user()->name}} عزیز </h2>
     <div class="detail-card" style="text-align: right;">
-            <p><strong> شماره کارت:</strong> {{ substr($card_number, -4) }}-****-****-****</p>
+        <p><strong> شماره کارت:</strong> {{ substr($card_number, -4) }}-****-****-****</p>
     </div>
 
 
@@ -93,9 +93,10 @@
         <p><strong>محصولات خریداری‌شده:</strong></p>
         <ul style="list-style-type: none; padding: 0;">
             @foreach($order_products as $order_product)
+
                 @php
                     $product = \App\Models\Product::find($order_product->product_id);
-              $product->update([
+                    $product->update([
                   'quantity' => $product->quantity - $order_product->quantity
 ])
                 @endphp

@@ -58,5 +58,8 @@ Route::post('/AddOrder/{id}' , [OrderController::class , 'AddOrder'])->name('Add
 Route::post('/UpdateOrder/{id}' , [OrderController::class , 'UpdateOrder'])->name('UpdateOrder');
 Route::post('/DeleteOrder' , [OrderController::class , 'DeleteOrder'])->name('DeleteOrder');
 Route::post('/AddComment/{id}' , [CommentController::class , 'AddComment'])->name('AddComment');
+Route::post('/SortUp' , [ShopController::class , 'SortUp'])->name('SortUp');
+Route::post('/SortDown' , [ShopController::class , 'SortDown'])->name('SortDown');
+
 
 

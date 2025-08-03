@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -19,7 +20,7 @@ class HomeController extends Controller
                 abort(403, 'شما فروشنده اید ');
             }
         }
-        $products = Product::limit(3)->where('status' , '10')->get();
+        $products = Product::limit(3)->with('properties')->where('status' , '10')->get();
         $categories = Category::all();
         return view('index' , compact('products', 'categories'));
     }
