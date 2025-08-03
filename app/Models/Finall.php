@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Finall extends Model
 {
     use HasFactory;
+
     protected $table = 'finals';
-    protected $fillable = ['user_id' , 'code' , 'total_price' , 'status'];
 
+    protected $fillable = ['cart_number', 'user_id', 'code', 'total_price', 'status'];
 
-    public function finalproducts()
+    public function finalProducts()
     {
         return $this->hasMany(FinalProduct::class, 'final_id');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 }
+

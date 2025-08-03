@@ -82,50 +82,44 @@
 </head>
 <body>
 <div class="success-box">
+    <h2>✅ سفارش شما با موفقیت ثبت شد، {{ auth()->user()->name }} عزیز</h2>
 
-    <h2> ✅ سفارش شما با موفقیت ثبت شد{{' '.auth()->user()->name}} عزیز </h2>
     <div class="detail-card" style="text-align: right;">
-        <p><strong> شماره کارت:</strong> {{ substr($card_number, -4) }}-****-****-****</p>
+        <p><strong>شماره کارت:</strong> {{ substr($final->cart_number, -4) }}-****-****-****</p>
     </div>
-
 
     <div class="detail-card" style="text-align: right;">
         <p><strong>محصولات خریداری‌شده:</strong></p>
         <ul style="list-style-type: none; padding: 0;">
-            @foreach($order_products as $order_product)
+            @foreach($final_products as $item)
 
-                @php
-                    $product = \App\Models\Product::find($order_product->product_id);
-                    $product->update([
-                  'quantity' => $product->quantity - $order_product->quantity
-])
-                @endphp
                 <li style="margin-bottom: 15px; background: #f9f9f9; padding: 12px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('uploads/products/' . $product->image) }}"
-                         alt="{{ $product->name }}"
+                    <img src="{{ asset('uploads/products/' . $item->product_image) }}"
+                         alt="{{ $item->product_name }}"
                          style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px; border: 1px solid #ddd;">
                     <div>
-                        <strong>نام محصول:</strong> {{ $product->name }} <br>
-                        <strong>رنگ:</strong> {{ $order_product->color }} <br>
-                        <strong>سایز:</strong> {{ $order_product->size }} <br>
-                        <strong>تعداد:</strong> {{ $order_product->quantity }}
+                        <strong>نام محصول:</strong> {{ $item->product_name }} <br>
+                        <strong>رنگ:</strong> {{ $item->color }} <br>
+                        <strong>سایز:</strong> {{ $item->size }} <br>
+                        <strong>تعداد:</strong> {{ $item->quantity }}
                     </div>
                 </li>
             @endforeach
         </ul>
     </div>
 
-
     <div class="detail-card">
-        <p><strong>مبلغ پرداختی:</strong> {{number_format($id)}} تومان</p>
+        <p><strong>مبلغ پرداختی:</strong> {{ number_format($final->total_price) }} تومان</p>
     </div>
 
-    <div class="tracking-code" id="trackingCode">
-        کد پیگیری: در حال تولید...
+    <div class="tracking-code">
+        کد پیگیری: {{ $final->code }}
     </div>
 
     <a href="/" class="btn-home">بازگشت به فروشگاه</a>
 </div>
+
+
 
 <script>
     // تولید کد پیگیری رندوم

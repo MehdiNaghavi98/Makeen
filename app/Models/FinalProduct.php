@@ -9,13 +9,15 @@ class FinalProduct extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['final_id', 'product_id', 'quantity', 'size', 'color'];
+    protected $table = 'finalproduct';  // اگر جدول شما تک هست
 
+    protected $fillable = ['final_id', 'product_id', 'quantity', 'size', 'color'];
 
     public function final()
     {
         return $this->belongsTo(Finall::class);
     }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -23,6 +23,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//SHOW PANEL
+Route::get('/seller' , [PanelController::class , 'ShowPanel'])->name('Show-Panel');
+Route::get('/create' , [PanelController::class , 'ShowCreate'])->name('Show-Create');
+Route::get('/categories' , [PanelController::class , 'ShowCategories'])->name('Show-Categories');
+Route::get('/delete-allProduct' , [PanelController::class , 'DeleteAllProduct'])->name('DeleteAllProduct');
+Route::get('/logout' , [AuthController::class , 'logout'])->name('logout');
+Route::get('/delete/{id}' , [PanelController::class , 'delete'])->name('Delete');
+Route::get('/change-status/{id}' , [PanelController::class , 'ChangeStatus'])->name('Change-Status');
+Route::get('/update/{id}' , [PanelController::class , 'ShowUpdate'])->name('Show-Update');
+
 
 //SHOW Main Site
 Route::get('/' , [HomeController::class , 'Show'] )->name('Show-Index');
@@ -36,15 +46,8 @@ Route::view('User-Details' , 'user')->name('Show-User-Details');
 Route::get('/Payment-mellat/{id}' , [PaymentController::class , 'ShowPaymentMellat'])->name('Show-Payment-Mellat');
 Route::get('/Payment-sedad/{id}' , [PaymentController::class , 'ShowPaymentSedad'])->name('Show-Payment-Sedad');
 Route::get('/final/{id}' , [OrderController::class , 'Final'])->name('Show-Final');
-//SHOW PANEL
-Route::get('/seller' , [PanelController::class , 'ShowPanel'])->name('Show-Panel');
-Route::get('/create' , [PanelController::class , 'ShowCreate'])->name('Show-Create');
-Route::get('/categories' , [PanelController::class , 'ShowCategories'])->name('Show-Categories');
-Route::get('/delete-allProduct' , [PanelController::class , 'DeleteAllProduct'])->name('DeleteAllProduct');
-Route::get('/logout' , [AuthController::class , 'logout'])->name('logout');
-Route::get('/delete/{id}' , [PanelController::class , 'delete'])->name('Delete');
-Route::get('/change-status/{id}' , [PanelController::class , 'ChangeStatus'])->name('Change-Status');
-Route::get('/update/{id}' , [PanelController::class , 'ShowUpdate'])->name('Show-Update');
+Route::get('/show/{id}', [OrderController::class, 'show'])->name('final.show');
+
 
 
 
@@ -60,6 +63,7 @@ Route::post('/DeleteOrder' , [OrderController::class , 'DeleteOrder'])->name('De
 Route::post('/AddComment/{id}' , [CommentController::class , 'AddComment'])->name('AddComment');
 Route::post('/SortUp' , [ShopController::class , 'SortUp'])->name('SortUp');
 Route::post('/SortDown' , [ShopController::class , 'SortDown'])->name('SortDown');
+
 
 
 
