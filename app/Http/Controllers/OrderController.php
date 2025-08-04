@@ -179,7 +179,6 @@ class OrderController extends Controller
             ->get();
 
 
-        // فرستادن داده‌ها به ویو
         return view('final', compact('final', 'final_products'));
     }
 
