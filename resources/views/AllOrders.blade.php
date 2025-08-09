@@ -72,6 +72,10 @@
         .accordion-button:hover {
             color: #312ebf;
         }
+        .accordion-button.open {
+            color: #1e1f7a;
+            border-bottom-color: #312ebf;
+        }
 
         .accordion-icon {
             transition: transform 0.4s ease, color 0.4s ease;
@@ -99,7 +103,13 @@
             font-feature-settings: "tnum";
             font-variant-numeric: tabular-nums;
         }
-
+        .accordion-content.open {
+            max-height: 2000px; /* کاملاً باز */
+            opacity: 1;
+            transform: translateY(0);
+            padding-top: 1.25rem;
+            padding-bottom: 2rem;
+        }
 
         .product-item {
             display: flex;
