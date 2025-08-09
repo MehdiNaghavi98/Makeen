@@ -43,6 +43,6 @@ class TicketController extends Controller
         }
 
         $tickets = Ticket::all()->where('user_id', auth()->id());
-        return view('alltickets' , compact('tickets'));
+        return view('AllTickets' , compact('tickets'));
     }
 }

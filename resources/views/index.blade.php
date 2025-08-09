@@ -113,12 +113,14 @@
                         </div>
                     </div>
                 </div>
+                @if(auth()->check())
                 <li class="nav-item position-relative d-flex align-items-center">
                     <a href="{{ route('Show-All-Order') }}" class="text-dark fs-5 px-2 position-relative" title="سفارشات">
                         <i class="fa fa-box"></i>
                         <span class="order-label">سفارشات</span>
                     </a>
                 </li>
+                @endif
                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
                    data-bs-target="#templatemo_search">
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>

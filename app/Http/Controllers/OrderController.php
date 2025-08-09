@@ -134,6 +134,7 @@ class OrderController extends Controller
 
     public function ShowAllOrder()
     {
-        return view('allorders');
+      $orders =  Order::with('products')->where('buyer_id', Auth::id())->whereIn('status', ['1', '2'])->get();
+        return view('allorders' , compact('orders'));
     }
 }

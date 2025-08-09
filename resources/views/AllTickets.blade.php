@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+
     <style>
         @keyframes fade-in {
             0% {opacity: 0; transform: translateY(20px);}
@@ -26,7 +28,7 @@
 </head>
 <body class="bg-gradient-to-br from-purple-100 to-indigo-200 min-h-screen py-10 px-4">
 
-<h1 class="text-4xl font-extrabold text-center text-indigo-900 mb-6 tracking-tight">
+<h1 style="font-family:'B Kamran' " class="text-4xl font-extrabold text-center text-indigo-900 mb-6 tracking-tight">
     تیکت‌های پشتیبانی {{ auth()->user()->name }}
 </h1>
 
@@ -35,7 +37,7 @@
        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold
               bg-white/60 backdrop-blur-md text-indigo-700 shadow-md hover:shadow-xl
               hover:bg-white/80 transition duration-300">
-        <i class="ph ph-arrow-left text-lg"></i>
+        <i  class="ph ph-arrow-left text-lg"></i>
         بازگشت به صفحه اصلی
     </a>
 </div>
