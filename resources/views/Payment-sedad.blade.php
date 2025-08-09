@@ -197,10 +197,10 @@
     <div class="right-box">
         <h3 style="margin-right: 180px">درگاه پر
             داخت سداد</h3>
-        <form action="{{route('Show-Final' , $id)}}" method="Get">
+        <form action="{{route('Final-Order' , $id)}}"  method="post">
             @csrf
             <label>شماره کارت:</label>
-            <input name="card_number" type="text" id="cardNumber" placeholder="0000-0000-0000-0000" maxlength="19"
+            <input name="cart_number" type="text" id="cardNumber" placeholder="0000-0000-0000-0000" maxlength="19"
                    style="direction: ltr; text-align: right;" required>
 
             <div class="row">

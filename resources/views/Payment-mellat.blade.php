@@ -50,7 +50,7 @@
         </script>
 
 
-        <form action="{{route('Show-Final' , $id)}}"  method="Get">
+        <form action="{{route('Final-Order' , $id)}}"  method="post">
             @csrf
             <div class="input-group">
                 <input

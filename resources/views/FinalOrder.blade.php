@@ -85,23 +85,23 @@
     <h2>✅ سفارش شما با موفقیت ثبت شد، {{ auth()->user()->name }} عزیز</h2>
 
     <div class="detail-card" style="text-align: right;">
-        <p><strong>شماره کارت:</strong> {{ substr($final->cart_number, -4) }}-****-****-****</p>
+        <p><strong>شماره کارت:</strong> {{ substr($order->cart_number, -4) }}-****-****-****</p>
     </div>
 
     <div class="detail-card" style="text-align: right;">
         <p><strong>محصولات خریداری‌شده:</strong></p>
         <ul style="list-style-type: none; padding: 0;">
-            @foreach($final_products as $item)
+            @foreach($OrderProducts as $product)
 
                 <li style="margin-bottom: 15px; background: #f9f9f9; padding: 12px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('uploads/products/' . $item->product_image) }}"
-                         alt="{{ $item->product_name }}"
+                    <img src="{{ asset('uploads/products/' . $product->image) }}"
+                         alt="{{ $product->name }}"
                          style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px; border: 1px solid #ddd;">
                     <div>
-                        <strong>نام محصول:</strong> {{ $item->product_name }} <br>
-                        <strong>رنگ:</strong> {{ $item->color }} <br>
-                        <strong>سایز:</strong> {{ $item->size }} <br>
-                        <strong>تعداد:</strong> {{ $item->quantity }}
+                        <strong>نام محصول:</strong> {{ $product->name }} <br>
+                        <strong>رنگ:</strong> {{ $product->pivot->color }} <br>
+                        <strong>سایز:</strong> {{ $product->pivot->size }} <br>
+                        <strong>تعداد:</strong> {{ $product->pivot->quantity }}
                     </div>
                 </li>
             @endforeach
@@ -109,16 +109,20 @@
     </div>
 
     <div class="detail-card">
-        <p><strong>مبلغ پرداختی:</strong> {{ number_format($final->total_price) }} تومان</p>
+        <p><strong>مبلغ پرداختی:</strong> {{ number_format($order->total_price) }} تومان</p>
+    </div>
+    <div class="detail-card">
+        @if($order->status == 1)
+            <p><strong> وضعیت : </strong><strong style="color: orange">پرداخت شده</strong></p>
+        @endif
     </div>
 
     <div class="tracking-code">
-        کد پیگیری: {{ $final->code }}
+        کد پیگیری: {{ $order->code }}
     </div>
 
     <a href="/" class="btn-home">بازگشت به فروشگاه</a>
 </div>
-
 
 
 <script>

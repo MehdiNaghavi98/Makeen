@@ -23,6 +23,7 @@ class OrderController extends Controller
             return view('orders', ['products' => []]);
         }
         $products = $order->products()->withPivot('quantity', 'size', 'color')->get();
+
         return view('orders', compact('products'));
 
     }
@@ -104,83 +105,35 @@ class OrderController extends Controller
         return redirect()->route('Show-Orders');
     }
 
-    public function Final(Request $request, $id)
+    public function FinalOrder(Request $request, $id)
     {
-        // مرحله 1: ایجاد سفارش نهایی
-        $final = Finall::create([
-            'user_id' => Auth::id(),
-            'code' => Str::random(12),
-            'total_price' => $id,
-            'cart_number' => $request->cart_number,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // مرحله 2: گرفتن سفارش و محصولات سبد خرید کاربر
-        $order = Order::where('buyer_id', Auth::id())->first();
-
+        $order = Order::where('buyer_id', Auth::id())->where('status', '0')->first();
         if (!$order) {
-            // اگر سفارش قبلاً حذف شده (مثلاً کاربر رفرش کرد)، ری‌دایرکت کن به نمایش سفارش
-            return redirect()->route('final.show', $final->id);
+            return redirect()->back();
         }
-
-        $order_products = DB::table('order_products')->where('order_id', $order->id)->get();
-
-        // مرحله 3: انتقال محصولات به جدول فینال و کم کردن از موجودی
-        foreach ($order_products as $order_product) {
-            DB::table('final_product')->insert([
-                'final_id' => $final->id,
-                'product_id' => $order_product->product_id,
-                'size' => $order_product->size,
-                'color' => $order_product->color,
-                'quantity' => $order_product->quantity,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            $product = Product::find($order_product->product_id);
-            if ($product && $product->quantity >= $order_product->quantity) {
-                $product->quantity -= $order_product->quantity;
-                $product->save();
-            } else {
-                Log::warning('موجودی کافی نیست برای محصول: ' . $order_product->product_id);
-            }
-        }
-
-        // مرحله 4: حذف سفارش موقت (سبد خرید)
-        DB::table('order_products')->where('order_id', $order->id)->delete();
-        $order->delete();
-
-        // مرحله 5: ری‌دایرکت به صفحه نهایی برای جلوگیری از اجرای مجدد همین کدها در رفرش
-        return redirect()->route('final.show', $final->id);
+        $order->update([
+            'status' => '1',
+            'cart_number' => $request->cart_number,
+            'total_price' => $id,
+            'code' => strtoupper(Str::random(10)),
+        ]);
+        return redirect()->route('Show-FinalOrder');
     }
 
 
-    public function show($id)
+    public function ShowFinalOrder()
     {
-        // گرفتن اطلاعات سفارش نهایی
-        $final = DB::table('finals')->where('id', $id)->first();
-
-        // اگه سفارش نهایی پیدا نشد، ارور بده یا برگرد به صفحه اصلی
-        if (!$final) {
-            abort(404, 'سفارش پیدا نشد');
-        }
-
-        // گرفتن محصولات مربوط به این سفارش با اطلاعات کامل از جدول products
-        $final_products = DB::table('final_product')
-            ->join('products', 'final_product.product_id', '=', 'products.id')
-            ->where('final_product.final_id', $final->id)
-            ->select(
-                'final_product.*',
-                'products.name as product_name',
-                'products.image as product_image',
-                'products.price as product_price'
-            )
-            ->get();
-
-
-        return view('final', compact('final', 'final_products'));
+      $order =   Order::where('buyer_id', Auth::id())->where('status', '1')->latest('id')->first();
+      $OrderProducts = $order->products()->get();
+        return view('FinalOrder' , compact('OrderProducts' , 'order'));
     }
 
 
+    // ALL  ORDERS FOR BUYER
+
+
+    public function ShowAllOrder()
+    {
+        return view('allorders');
+    }
 }

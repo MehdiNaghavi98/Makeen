@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Order extends Model
 {
     use HasFactory,Notifiable;
-    protected $fillable = ['buyer_id' , 'status'];
+    protected $fillable = ['buyer_id' , 'status' , 'cart_number' , 'total_price' , 'code'];
 
     public function user()
     {

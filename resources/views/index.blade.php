@@ -79,6 +79,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Shop')}}">فروشگاه</a>
                     </li>
+                    @if(Auth::check())
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{route('Show-Sabt-Ticket')}}" class="nav-link">
+                                    ثبت تیکت
+                                </a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="{{route('Show-All-Tickets')}}">
+                                            مشاهده تیکت‌ها
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    @endif
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
                     </li>
@@ -96,6 +113,12 @@
                         </div>
                     </div>
                 </div>
+                <li class="nav-item position-relative d-flex align-items-center">
+                    <a href="{{ route('Show-All-Order') }}" class="text-dark fs-5 px-2 position-relative" title="سفارشات">
+                        <i class="fa fa-box"></i>
+                        <span class="order-label">سفارشات</span>
+                    </a>
+                </li>
                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
                    data-bs-target="#templatemo_search">
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
@@ -112,11 +135,40 @@
                         <i class="fa fa-fw fa-user text-dark ms-1"></i>
                     </a>
                 @endif
+                <!-- سفارشات به شکل آیکون با انیمیشن متن راهنما -->
+
+                <style>
+                    /* متن راهنما کنار آیکون سفارش */
+                    .order-label {
+                        position: absolute;
+                        top: -10px;
+                        right: -60px;
+                        background-color: #fff;
+                        color: #333;
+                        font-size: 0.75rem;
+                        padding: 2px 6px;
+                        border-radius: 6px;
+                        opacity: 0;
+                        transition: all 0.5s ease;
+                        pointer-events: none;
+                        animation: orderHintAnim 10s infinite;
+                    }
+
+                    /* انیمیشن متن سفارشات */
+                    @keyframes orderHintAnim {
+                        0% { opacity: 0; transform: translateX(10px); }
+                        2% { opacity: 1; transform: translateX(0); }
+                        4% { opacity: 1; transform: translateX(0); }
+                        6% { opacity: 0; transform: translateX(-10px); }
+                        100% { opacity: 0; }
+                    }
+                </style>
 
 
 
 
-                @if(!auth()->check())
+
+            @if(!auth()->check())
                     <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-Auth')}}">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                     </a>
@@ -306,7 +358,7 @@
                 </div>
             @endforeach
         </div>
-
+</div>
 </section>
 
 <!-- End Featured Product -->

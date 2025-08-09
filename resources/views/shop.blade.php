@@ -69,6 +69,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-Shop')}}">فروشگاه</a>
                     </li>
+                    @if(Auth::check())
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="{{route('Show-Sabt-Ticket')}}" class="nav-link">
+                                    ثبت تیکت
+                                </a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="">
+                                            مشاهده تیکت‌ها
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Show-About')}}">درباره ما</a>
                     </li>
@@ -101,6 +117,11 @@
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                     </a>
                 @endif
+                    @if(auth()->check())
+                        <a class="nav-icon position-relative text-decoration-none" href="{{route('Show-User-Details')}}">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        </a>
+                    @endif
             </div>
         </div>
 
@@ -165,7 +186,7 @@
         <div class="col-lg-9">
             <!-- فیلتر و جستجو -->
             <div class="row mb-4">
-                <div class="col-md-6"></div>
+                <div class  ="col-md-6"></div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="sort-options d-flex gap-2 mb-4 justify-content-center">
                         <a href="{{route('Show-Shop' , 'down')}}" class="sort-link">

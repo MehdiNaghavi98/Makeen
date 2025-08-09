@@ -10,6 +10,7 @@ use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShopSingleController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::get('/change-status/{id}' , [PanelController::class , 'ChangeStatus'])->n
 Route::get('/update/{id}' , [PanelController::class , 'ShowUpdate'])->name('Show-Update');
 
 
+
 //SHOW Main Site
 Route::get('/' , [HomeController::class , 'Show'] )->name('Show-Index');
 Route::get('/contact' , [ContactController::class , 'Show'])->name('Show-Contact');
@@ -45,8 +47,14 @@ Route::get('/orders' , [OrderController::class , 'ShowOrders'])->name('Show-Orde
 Route::view('User-Details' , 'user')->name('Show-User-Details');
 Route::get('/Payment-mellat/{id}' , [PaymentController::class , 'ShowPaymentMellat'])->name('Show-Payment-Mellat');
 Route::get('/Payment-sedad/{id}' , [PaymentController::class , 'ShowPaymentSedad'])->name('Show-Payment-Sedad');
-Route::get('/final/{id}' , [OrderController::class , 'Final'])->name('Show-Final');
-Route::get('/show/{id}', [OrderController::class, 'show'])->name('final.show');
+Route::get('/Show-Sabt-Ticket/', [TicketController::class, 'ShowSabtTicket'])->name('Show-Sabt-Ticket');
+Route::get('/Show-FinalOrder', [OrderController::class, 'ShowFinalOrder'])->name('Show-FinalOrder');
+Route::get('/Show-All-Tickets/', [TicketController::class, 'ShowAllTickets'])->name('Show-All-Tickets');
+Route::get('/Show-All-Orders/', [OrderController::class, 'ShowAllOrder'])->name('Show-All-Order');
+
+
+
+
 
 
 
@@ -63,6 +71,9 @@ Route::post('/DeleteOrder' , [OrderController::class , 'DeleteOrder'])->name('De
 Route::post('/AddComment/{id}' , [CommentController::class , 'AddComment'])->name('AddComment');
 Route::post('/SortUp' , [ShopController::class , 'SortUp'])->name('SortUp');
 Route::post('/SortDown' , [ShopController::class , 'SortDown'])->name('SortDown');
+Route::post('Final-Order{id}' , [OrderController::class , 'FinalOrder'])->name('Final-Order');
+Route::post('AddTicket' , [TicketController::class , 'AddTicket'])->name('AddTicket');
+
 
 
 

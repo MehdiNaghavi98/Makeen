@@ -713,3 +713,69 @@ form {
 
 
 
+
+
+
+
+
+
+
+
+ .nav-item {
+     position: relative;
+     display: inline-block;
+ }
+
+/* لینک اصلی */
+.nav-link {
+    color: #16a34a;
+    font-weight: 600;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* باکس dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(22,163,74,0.2);
+    min-width: 180px;
+    z-index: 1000;
+    padding: 8px 0;
+}
+
+/* فقط وقتی موس روی کل nav-item هست dropdown نمایش داده بشه */
+.nav-item:hover .dropdown {
+    display: block;
+}
+
+/* آیتم‌های زیرمنو */
+.dropdown li {
+    list-style: none;
+}
+
+.dropdown li a {
+    display: block;
+    padding: 8px 16px;
+    color: #374151;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+}
+
+.dropdown li a:hover {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+
+
