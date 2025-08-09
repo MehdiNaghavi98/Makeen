@@ -45,6 +45,7 @@
 
 <h1 class="text-4xl font-extrabold text-center text-purple-800 mb-10">سفارش‌های ثبت‌شده شما</h1>
 
+
 <div class="space-y-8 max-w-5xl mx-auto">
 
     @if($orders->isEmpty())
