@@ -71,6 +71,7 @@
 
             <div class="flex justify-between items-center">
                 <div>
+
                     <h2 class="text-2xl font-bold text-indigo-800">سفارش شماره {{ $loop->iteration }} -
                         کد: {{ $order->code }}</h2>
 
